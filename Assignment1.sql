@@ -1,24 +1,24 @@
 Problems and solutions to the queries-
 
-1. Select the names of all the products in the store.
---> select name from Products;
+--> 1. Select the names of all the products in the store.
+select name from Products;
 
-2. Select the names and the prices of all the products in the store.
---> select name,price from Products;
+--> 2. Select the names and the prices of all the products in the store.
+select name,price from Products;
 
-3. Select the name of the products with a price less than or equal to $200.
---> select name from Products where price <= 200;
+--> 3. Select the name of the products with a price less than or equal to $200.
+select name from Products where price <= 200;
 
-4. Select all the products with a price between $60 and $120.
---> select * from Products where price >= 60 and price <= 120;
+--> 4. Select all the products with a price between $60 and $120.
+select * from Products where price >= 60 and price <= 120;
   or
---> select * from Products where price BETWEEN 60 and 120;
+select * from Products where price BETWEEN 60 and 120;
 
-5. Select the name and price in cents (i.e., the price must be multiplied by 100).
---> select name, price*100 from Products;
+--> 5. Select the name and price in cents (i.e., the price must be multiplied by 100).
+select name, price*100 from Products;
 
-6. Compute the average price of all the products.
---> select avg(price) from Products;
+--> 6. Compute the average price of all the products.
+select avg(price) from Products;
 
 
 7. Compute the average price of all products with manufacturer code equal to 2.
