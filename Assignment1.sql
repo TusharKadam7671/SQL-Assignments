@@ -20,18 +20,39 @@ select name, price*100 from Products;
 --> 6. Compute the average price of all the products.
 select avg(price) from Products;
 
+--> 7. Compute the average price of all products with manufacturer code equal to 2.
+select avg(price) from Products where manufacturer = 2;
 
-7. Compute the average price of all products with manufacturer code equal to 2.
-8. Compute the number of products with a price larger than or equal to $180.
-9. Select the name and price of all products with a price larger than or equal to $180, and sort first by price (in 	descending order), and then by name (in ascending order).
-10. Select all the data from the products, including all the data for each product's manufacturer.
-11. Select the product name, price, and manufacturer name of all the products.
-12. Select the average price of each manufacturer's products, showing only the manufacturer's code.
-13. Select the average price of each manufacturer's products, showing the manufacturer's name.
-14. Select the names of manufacturer whose products have an average price larger than or equal to $150.
-15. Select the name and price of the cheapest product.
-16. Select the name of each manufacturer along with the name and price of its most expensive product.
+--> 8. Compute the number of products with a price larger than or equal to $180.
+select count(code) from Products where price >= 180;
+  or
+select count(*) from Products where price >= 180;
 
+--> 9. Select the name and price of all products with a price larger than or equal to $180, and sort first by price (in 	descending order), and then by name (in ascending order).
+select name,price from Products where price >= 180 order by price DESC, name ASC;
+
+--> 10. Select all the data from the products, including all the data for each product's manufacturer.
+select p.* , m.* from Products p inner join Manufacturers m on p.manufacturer = m.Code;
+
+--> 11. Select the product name, price, and manufacturer name of all the products.
+select p.name, p.price, m.name from Products p inner join Manufacturers m on p.manufacturer = m.Code;
+
+--> 12. Select the average price of each manufacturer's products, showing only the manufacturer's code.
+select avg(price),manufacturer from Products GROUP by manufacturer;
+
+--> 13. Select the average price of each manufacturer's products, showing the manufacturer's name.
+select avg(p.price), m.name from Products p INNER join Manufacturers m on p.manufacturer = m.code GROUP by m.name;
+
+--> 14. Select the names of manufacturer whose products have an average price larger than or equal to $150.
+select avg(p.price), m.name from Manufacturers m INNER JOIN Products p ON m.code = p.manufacturer GROUP by m.name having avg(p.price) >= 150 ; 
+
+--> 15. Select the name and price of the cheapest product.
+SELECT name, price from Products order by price LIMIT 1;
+or
+select name, price from Products where price = ( select min(price) from products);
+
+--> 16. Select the name of each manufacturer along with the name and price of its most expensive product.
+Not solved.
 
 
 ----------------------------------------------------------------------------
