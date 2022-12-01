@@ -152,6 +152,17 @@ The query returns values for department_id for which salary is greater than
 10000. Using the result of this query as a subquery, display the names of all 
 departments for which the above condition is met.
 
+-->
+
+select department_name 
+from department 
+where department_id in 
+(SELECT
+  department_id
+FROM
+  employee
+WHERE
+  salary > 10000);
 
 
 
@@ -162,6 +173,20 @@ Problem 2 : Please follow the steps below.
 where the salary is greater than 10,000.
 2. Using the result of the previous query as a subquery, display the names of 
 all positions for which the above condition is met.
+
+--> 
+1.
+select job_id 
+FROM employee 
+where salary > 10000;
+
+2.
+select * from employee 
+where job_id in 
+	(SELECT job_id 
+	 FROM employee 
+	 where salary > 10000
+	);
 
 
 
@@ -278,6 +303,17 @@ GROUP BY
 Modify this query to display only the first three values for the product_id 
 with the highest value for the number_of_orders column.
 
+-->
+
+SELECT
+  product_id,
+  COUNT(*) AS number_of_orders
+FROM
+  sale
+GROUP BY
+  product_id 
+  order by number_of_orders DESC 
+  limit 3;
 
 
 
@@ -300,6 +336,20 @@ LIMIT
 Display all data from the product table about the products returned by the 
 above query
 
+-->
+
+select * from product 
+where product_id in 
+(SELECT
+  product_id
+FROM
+  sale
+GROUP BY
+  product_id
+ORDER BY
+  COUNT(*) DESC
+LIMIT
+  3);
 
 
 
@@ -309,6 +359,8 @@ above query
 Problem 5 : Group data from the sale table at product_id level. Calculate the number of 
 orders for each product and assign the alias number_of_orders. Using the HAVING 
 clause, display only those products that appeared once in the table (one order).
+
+-->
 
 SELECT
   product_id,
@@ -326,6 +378,16 @@ Problem 6 : Using the previous exercise and subqueries, create a query that disp
 information about the products from the product table that were purchased only 
 once (the sale table).
 
+-->
+
+SELECT
+*
+FROM
+  sale
+GROUP BY
+  product_id
+HAVING
+  COUNT(*) == 1;
 
 
 
@@ -353,6 +415,24 @@ Problem 8 : Modify this query so that the result only includes information for t
 * product_name
 * list_price
 
+-->
+
+
+SELECT
+  product_name,list_price
+FROM
+  product
+WHERE
+  product_id IN (
+    SELECT
+      product_id
+    FROM
+      sale
+    GROUP BY
+      product_id
+    HAVING
+      COUNT(*) == 1
+  );
 
 
 
