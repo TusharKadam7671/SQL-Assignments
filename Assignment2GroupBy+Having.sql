@@ -1,7 +1,12 @@
 Problem 1 : Group data at the Sector level. Then find the average EPS for each sector and 
 assign the alias AvgEPSPerSector. Display sectors with AvgEPSPerSector above 10 
 and sort the result by the AvgEPSPerSector column in descending order.
-
+-->
+select sector,avg(eps) as AvgEPSPerSector 
+from Stock 
+group by sector 
+having AvgEPSPerSector > 10 
+order by AvgEPSPerSector desc;
 
 
 
@@ -63,7 +68,18 @@ ORDER BY
 
 Modify this query to display those job_id values for which the average salary 
 is greater than 10,000.
+-->
 
+SELECT
+  job_id,
+  AVG(salary) AS avg_salary
+FROM
+  employee
+GROUP BY
+  job_id 
+having avg_salary > 10000
+ORDER BY
+  avg_salary DESC;
 
 
 
@@ -83,7 +99,18 @@ ORDER BY
 
 Modify this query to display those job_id values for which the average salary 
 is in the range [10,000, 20,000].
+-->
 
+SELECT
+  job_id,
+  AVG(salary) AS avg_salary
+FROM
+  employee
+GROUP BY
+  job_id
+having avg_salary BETWEEN 10000 and 20000
+ORDER BY
+  avg_salary DESC;
 
 
 
@@ -237,7 +264,13 @@ orders for each product and assign it to a column named number_of_orders. Then,
  using the HAVING clause, extract products with a number of orders greater than
  one. Sort the result in descending order by number_of_orders.
 
+-->
 
+select product_id,count(product_id) as number_of_orders 
+from sale 
+group by product_id 
+having number_of_orders > 1  
+order by number_of_orders desc;
 
 
 Schema -
